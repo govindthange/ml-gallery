@@ -1,4 +1,5 @@
-# Import library for NLP
+import pandas as pd
+import random
 import spacy
 from spacy.training import Example
 
@@ -17,30 +18,16 @@ nlp.get_pipe('ner').add_label("HOLD_CALL")
 nlp.get_pipe('ner').add_label("STOP_LOSS")
 nlp.get_pipe('ner').add_label("PERIOD")
 
-# Load the training data.
-train_data = [
-  ("Religare Broking has buy call on Coal India with a target price of Rs 260.3",{"entities":[[21,29,"BUY_CALL"],[33,43,"STOCK"],[70,75,"TARGET_PRICE"]]}),
-  ("The current market price of Coal India is Rs 246.7",{"entities":[[28,38,"STOCK"],[45,50,"MARKET_PRICE"]]}),
-  ("Religare Broking recommended to keep stop loss at Rs 240",{"entities":[[53,56,"STOP_LOSS"]]}),
-  ("ICICI Direct has hold call on eClerx Services with a target price of Rs 1800.5",{"entities":[[17,26,"HOLD_CALL"],[30,45,"STOCK"],[72,78,"TARGET_PRICE"]]}),
-  ("The current market price of eClerx Services is Rs 1587.9",{"entities":[[28,43,"STOCK"],[50,56,"MARKET_PRICE"]]}),
-  ("Time period given by analyst is 12 months when eClerx Services Ltd. price can reach defined target",{"entities":[[32,41,"PERIOD"],[47,62,"STOCK"]]}),
-  ("JM Financial has buy call on Rolex Rings with a target price of Rs 2500.5",{"entities":[[17,25,"BUY_CALL"],[29,40,"STOCK"],[67,73,"TARGET_PRICE"]]}),
-  ("The current market price of Rolex Rings is Rs 1882.85",{"entities":[[28,39,"STOCK"],[46,53,"MARKET_PRICE"]]}),
-  ("JM Financial has buy call on Archean Chemical Industries with a target price of Rs 810.1",{"entities":[[17,25,"BUY_CALL"],[29,56,"STOCK"],[83,88,"TARGET_PRICE"]]}),
-  ("The current market price of Archean Chemical Industries is Rs 541.2",{"entities":[[28,55,"STOCK"],[62,67,"MARKET_PRICE"]]}),
-  ("ICICI Direct has buy call on L&T Finance Holdings with a target price of Rs 104.6",{"entities":[[17,25,"BUY_CALL"],[29,40,"STOCK"],[76,81,"TARGET_PRICE"]]}),
-  ("The current market price of L&T Finance Holdings is Rs 103.3.",{"entities":[[28,39,"STOCK"],[55,60,"MARKET_PRICE"]]}),
-  ("Time period given by analyst is Intra Day when L&T Finance Holdings price can reach defined target",{"entities":[[47,58,"STOCK"]]}),
-  ("ICICI Direct recommended to keep stoploss at Rs 102.2",{"entities":[[48,53,"STOP_LOSS"]]}),
-  ("ICICI Direct has buy call on Tata Power Company with a target price of Rs 219.7",{"entities":[[17,25,"BUY_CALL"],[29,39,"STOCK"],[74,79,"TARGET_PRICE"]]}),
-  ("The current market price of Tata Power Company is Rs 215.3",{"entities":[[28,38,"STOCK"],[53,58,"MARKET_PRICE"]]}),
-  ("ICICI Direct recommended to keep stop loss at Rs 213.7.",{"entities":[[49,54,"STOP_LOSS"]]}),
-  ("HDFC Securities is bullish on NCC has recommended buy rating on the stock with a target price of Rs 137 in its research report dated May 29, 2023",{"entities":[[30,33,"STOCK"],[100,103,"TARGET_PRICE"]]})
-]
+# Load the training data from the CSV file using pandas
+df = pd.read_csv("./training-data/recommendations.csv")
 
-# Train the NER model
-import random
+# Convert the DataFrame to a list of tuples (text, entities)
+train_data = list(zip(df['text'], df['entities']))
+
+# Convert the entities column from string representation to list of lists
+train_data = [(text, {"entities": eval(entities)}) for text, entities in train_data]
+
+# Train the NER model using random library
 
 # https://spacy.io/usage/processing-pipelines
 unaffected_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
