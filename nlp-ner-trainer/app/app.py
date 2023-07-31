@@ -61,9 +61,27 @@ samples = [
   "Wall Street is enamoured with all things artificial intelligence (AI). Nowhere is this trend more evident than in the recent parabolic growth of graphics, computing, and networking solutions company Nvidia (NVDA 2.99%). Thanks to its central role as a pillar of global AI architecture, Nvidia has seen its market cap swell to nearly $1 trillion in 2023. For context, the graphics and cloud computing juggernaut started the year off with a far more modest market cap of approximately $350 billion."
 ]
 
-for sample in samples:
-  doc = nlp(sample)
-  print("Sample: ", sample)
-  for ent in doc.ents:
-    print(ent.label_, '=', ent.text)
-  print("\n")
+# ML Test Prompt
+while True:
+  ip = input("\nEnter recommendation: ")
+  if ip == "exit":
+      break
+  if ip == "show samples":
+      for sample in samples:
+        doc = nlp(sample)
+        print("=> ", sample)
+      continue
+  elif ip == "test samples":
+      for sample in samples:
+        doc = nlp(sample)
+        print("Sample: ", sample)
+        for ent in doc.ents:
+          print(ent.label_, '=', ent.text)
+        print("\n")
+      continue
+  else:
+    doc = nlp(ip)
+    print("Recommendation: ", sample)
+    for ent in doc.ents:
+      print(ent.label_, '=', ent.text)
+    print("\n")
