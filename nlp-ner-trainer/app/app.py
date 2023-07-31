@@ -51,27 +51,23 @@ with nlp.disable_pipes(*unaffected_pipes):
 nlp.to_disk("en_core_web_fin_sm")
 # !zip -r /content/en_core_web_fin_sm.zip /content/en_core_web_fin_sm
 
-# Test recommendations text
-samples = [
-  "ICICI Direct has buy call on Torrent Pharmaceuticals with a target price of Rs 2010.5. The current market price of Torrent Pharmaceuticals is Rs 1775.9. Time period given by analyst is a year when Torrent Pharmaceuticals price can reach defined target",
-  "ICICI Direct has buy call on Punjab National Bank with a target price of Rs 52.4. The current market price of Punjab National Bank is Rs 51.48. Time period given by analyst is Intra Day when Punjab National Bank price can reach defined target. ICICI Direct recommended to keep stop loss at Rs 50.5",
-  "ICICI Direct has buy call on Infosys with a target price of Rs 1335.8. The current market price of Infosys is Rs 1325.5. Time period given by analyst is Intra Day when Infosys price can reach defined target. ICICI Direct recommended to keep stop loss at Rs 1308.7",
-  "HDFC Securities has buy call on Mahindra Holidays & Resorts India with a target price of Rs 360. The current market price of Mahindra Holidays & Resorts India is Rs 305.8. HDFC Securities recommended to keep stop loss at Rs 268",
-  "Religare Broking has buy call on Coal India with a target price of Rs 260. The current market price of Coal India is Rs 246.7. Religare Broking recommended to keep stop loss at Rs 240",
-  "Wall Street is enamoured with all things artificial intelligence (AI). Nowhere is this trend more evident than in the recent parabolic growth of graphics, computing, and networking solutions company Nvidia (NVDA 2.99%). Thanks to its central role as a pillar of global AI architecture, Nvidia has seen its market cap swell to nearly $1 trillion in 2023. For context, the graphics and cloud computing juggernaut started the year off with a far more modest market cap of approximately $350 billion."
-]
-
 # ML Test Prompt
 while True:
   ip = input("\nEnter recommendation: ")
   if ip == "exit":
       break
   if ip == "show samples":
+      # Read the recommendations from the file using pandas
+      sampleDataFrame = pd.read_csv("./training-data/test-samples.csv", header=None, names=["text"])
+      samples = sampleDataFrame["text"].tolist()
       for sample in samples:
         doc = nlp(sample)
         print("=> ", sample)
       continue
   elif ip == "test samples":
+      # Read the recommendations from the file using pandas
+      sampleDataFrame = pd.read_csv("./training-data/test-samples.csv", header=None, names=["text"])
+      samples = sampleDataFrame["text"].tolist()
       for sample in samples:
         doc = nlp(sample)
         print("Sample: ", sample)
