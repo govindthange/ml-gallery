@@ -2,6 +2,7 @@ import pandas as pd
 import random
 import spacy
 from spacy.training import Example
+import pickle
 
 # Load en_core_web_sm which is a pre-trained English language model provided by the spaCy library.
 # This model has been trained on a large corpus of text and contains word embeddings, 
@@ -48,36 +49,8 @@ with nlp.disable_pipes(*unaffected_pipes):
       nlp.update([example], sgd=optimizer)
 
 # Save the model locally
-nlp.to_disk("en_core_web_fin_sm")
-# !zip -r /content/en_core_web_fin_sm.zip /content/en_core_web_fin_sm
+nlp.to_disk("./model/en_core_web_fin_sm")
 
-# ML Test Prompt
-while True:
-  ip = input("\nEnter recommendation: ")
-  if ip == "exit":
-      break
-  if ip == "show samples":
-      # Read the recommendations from the file using pandas
-      sampleDataFrame = pd.read_csv("./training-data/test-samples.csv", header=None, names=["text"])
-      samples = sampleDataFrame["text"].tolist()
-      for sample in samples:
-        doc = nlp(sample)
-        print("=> ", sample)
-      continue
-  elif ip == "test samples":
-      # Read the recommendations from the file using pandas
-      sampleDataFrame = pd.read_csv("./training-data/test-samples.csv", header=None, names=["text"])
-      samples = sampleDataFrame["text"].tolist()
-      for sample in samples:
-        doc = nlp(sample)
-        print("Sample: ", sample)
-        for ent in doc.ents:
-          print(ent.label_, '=', ent.text)
-        print("\n")
-      continue
-  else:
-    doc = nlp(ip)
-    print("Recommendation: ", sample)
-    for ent in doc.ents:
-      print(ent.label_, '=', ent.text)
-    print("\n")
+# Bundle the model in a single file using pickle
+with open("./model/nlp-ner-stck-recmndtns.pkl", "wb") as f:
+    pickle.dump(nlp, f)
