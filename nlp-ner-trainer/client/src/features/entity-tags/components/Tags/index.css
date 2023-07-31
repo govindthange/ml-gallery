@@ -1,0 +1,39 @@
+/* table.css */
+
+/* Style for the table container */
+.table-container {
+  width: 95%;
+  margin: 10px;
+  margin-left: 40px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+/* Style for the table */
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Style for table header cells */
+.table-container th {
+  background-color: #f2f2f2;
+  padding: 10px;
+  text-align: center; /* Align table headers to the center */
+  font-weight: bold;
+}
+
+/* Style for table body cells */
+.table-container td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center; /* Align table cell text to the center */
+}
+
+/* Hover effect on table rows */
+.table-container tr:hover {
+  background-color: #f9f9f9;
+}

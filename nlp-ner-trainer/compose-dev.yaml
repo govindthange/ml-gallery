@@ -1,8 +1,41 @@
 services:
   app:
-    container_name: nlp-ner-trainer
+    container_name: ${APP_NAME}
     build:
       context: ./app
     command: /bin/sh -c "while sleep 1000; do :; done"
     volumes:
       - ./app:/app
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: ${APP_NAME}-server
+    networks:
+      - nlp-ner-trainer-network
+    ports:
+      - "5000:5000"
+    # environment:
+    #   - TEST_PORT=7777
+    volumes:
+      - ./server:/workspace:cached
+      - ./app/model:/workspace/model
+    command: /bin/sh -c "while sleep 1000; do :; done"
+  client:
+    depends_on:
+      - server  # Ensure the server is up before starting the client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: ${APP_NAME}-client
+    networks:
+      - nlp-ner-trainer-network
+    # environment:
+    #   - APP_HOST=host.docker.internal
+    #   - APP_PORT=7777
+    volumes:
+      - ./client:/workspace:cached
+    command: /bin/sh -c "while sleep 1000; do :; done"
+networks:
+  nlp-ner-trainer-network:
+    driver: bridge
