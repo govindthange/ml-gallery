@@ -49,7 +49,6 @@ const TaggedText = ({ text, entities }) => {
 
   return (
     <div className='tagged-text'>
-      <h1>Tagged Text</h1>
       <p>{taggedText}</p>
     </div>
   );

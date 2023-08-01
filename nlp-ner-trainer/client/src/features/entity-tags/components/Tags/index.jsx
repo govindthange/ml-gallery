@@ -4,12 +4,11 @@ import './index.css';
 const TableComponent = ({ entities }) => {
   return (
     <div className="table-container">
-      <h2>Tagged Entities</h2>
       <table>
         <thead>
           <tr>
-            <th>Label</th>
-            <th>Text</th>
+            <th>Tagged Labels</th>
+            <th>Important Words</th>
           </tr>
         </thead>
         <tbody>
