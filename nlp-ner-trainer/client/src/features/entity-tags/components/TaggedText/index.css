@@ -1,0 +1,63 @@
+.tagged-text > p {
+  font-size: 18px;
+  margin-left: 50px;
+  margin-right: 50px;
+  text-align: left;
+}
+
+.highlighted-text {
+  background-color: lightyellow;
+  position: relative;
+}
+
+.label-sup {
+  position: absolute;
+  top: -17px;
+  right: -24px;
+  font-size: 10px;
+  background-color: lightgray;
+  padding: 2px 5px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  border: 1px solid #918e8e;
+}
+
+.buy_call {
+  background-color: rgb(225, 255, 197);
+}
+
+.sell_call {
+  background-color: rgb(238, 150, 144);
+}
+
+.hold_call {
+  background-color: rgb(182, 219, 253);
+}
+
+.stock {
+  background-color: rgb(253, 247, 191);
+}
+
+.market_price {
+  background-color: rgb(220, 231, 231);
+}
+
+.target_price {
+  background-color: rgb(186, 250, 252);
+}
+
+.stop_loss {
+  background-color: rgb(250, 214, 166);
+}
+
+.period {
+  background-color: rgb(219, 209, 253);
+}
+
+/* Additional styles for the container of the taggedText component (e.g., App.css) */
+
+.container {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
