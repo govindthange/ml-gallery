@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# Development Environment (Client)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Prerequisite
 
-## Available Scripts
+1. Ensure you have brought up the 3 nlp-ner-trainer containers
+    ```
+    govind@thinkpad:~/projects/ml-gallery/nlp-ner-trainer$ docker compose -f ./compose-dev.yaml up
+    ```
+2. Ensure that the AI model was trained and .pkl file was generated. Click [here](../app/README.md) to follow instructions.
+3. Ensure the server is up and running. Click [here](../server/README.md) to follow instructions.
 
-In the project directory, you can run:
+## Step 1. Open `./nlp-ner-trainer/client` folder in VS Code
 
-### `npm start`
+## Step 2. Attach it to the running client container
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Click on `Attach to Running Container...`
+2. Select `nlp-ner-trainer-client` container from the list.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Step 3. Open container's `/workspace` folder in VS Code
 
-### `npm test`
+## Step 4. For the 1st container run, execute `npm install`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+root@27b5414f11b7:/workspace# npm install
+```
 
-### `npm run build`
+## Step 5. Test client to server connectivity
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+root@27b5414f11b7:/workspace# curl http://server:5000/ping
+{"status":200,"message":"Successful ping test"}
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Step 6. Start the client
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+root@27b5414f11b7:/workspace# node start
+```
 
-### `npm run eject`
+Upon start following log will appear
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+Compiled successfully!
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You can now view workspace in the browser.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  Local:            http://localhost:3000
+  On Your Network:  http://172.19.0.3:3000
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Note that the development build is not optimized.
+To create a production build, use npm run build.
 
-## Learn More
+webpack compiled successfully
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Step 7. Test the application
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Open http://localhost:3000 in your browser.

@@ -30,6 +30,8 @@ services:
     container_name: ${APP_NAME}-client
     networks:
       - nlp-ner-trainer-network
+    ports:
+      - "3000:3000"
     # environment:
     #   - APP_HOST=host.docker.internal
     #   - APP_PORT=7777
