@@ -34,7 +34,7 @@ root@27b5414f11b7:/workspace# curl http://server:5000/ping
 ## Step 6. Start the client
 
 ```
-root@27b5414f11b7:/workspace# node start
+root@27b5414f11b7:/workspace# npm start
 ```
 
 Upon start following log will appear
